@@ -1,0 +1,2 @@
+# Term Project for W4995 Sec:10 Deep Learning. 
+The purpose of the project is building a smart trading agent with deep reinforcement learning. If you are familiar with the <em> Efficient-Market Hypothesis (EMH) <em> and a strong believer of <em>EMH<em>, you would understand the intuition behind using Markov Descision Proess (MDP) and other reinforcement learning algorithms to model the whole process. The agent we build will compete with S&P 500 Index and Dow Jones Index in terms of rate of return and Sharpe Ratio, which evalute a trading strategy's return and risk.
