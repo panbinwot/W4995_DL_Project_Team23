@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 window_size = 10
-_, data = get_data("AAPL",window_size)
+data,_ = get_data("AAPL",window_size)
 stock_name, episode_count = 'APPL' , int(len(data)/window_size)
 
 bot = Binbot(window_size)
