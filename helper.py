@@ -2,9 +2,9 @@ import numpy as np
 import pandas as pd
 import math
 
-def get_data(stock_name, window_size):
+def get_data(stock_name):
     df = pd.read_csv("./data/"+stock_name+".csv")
-    train = list(df[(df['timestamp'] >= '1995-1-1 01:00:00') & (df['timestamp'] <= '2013-12-31 04:00:00')]['close'])
+    train = list(df[(df['timestamp'] >= '2013-1-1 01:00:00') & (df['timestamp'] <= '2013-12-31 04:00:00')]['close'])
     # train2 = train[:-(len(train)%window_size)]
     test = list(df[(df['timestamp'] >= '2018-1-1 01:00:00') & (df['timestamp'] <= '2018-12-31 12:00:00')]['close'])
     # test2 = test[:-(len(test)%window_size)]

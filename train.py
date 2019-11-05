@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 window_size = 10
-data,_ = get_data("AAPL",window_size)
+data,_ = get_data("AAPL")
 stock_name, episode_count = 'APPL' , int(len(data)/window_size)
 
 bot = Binbot(window_size)
@@ -19,6 +19,7 @@ for e in range(episode_count + 1):
 
     total_gain = 0
     bot.inventory = []
+
     for t in range(l):
         action = bot.act(state)
 
@@ -27,12 +28,12 @@ for e in range(episode_count + 1):
 
         if action == 1: 
             bot.inventory.append(data[t])
-            print("Buy at"+ str(data[t]))
+            print("Buy at "+ str(data[t]))
         elif action==2 and len(bot.inventory)>0:
             bought_price = bot.inventory.pop(0)
             reward = max(data[t]-bought_price,0)
             total_gain += data[t] - bought_price
-            print("Sell at "+str(data[t])+" Current gain:"+str(total_gain))
+            print("Sell at "+str(data[t])+" Current gain: "+str(total_gain))
 
         done = True if t == l - 1 else False
         bot.memory.append((state, action, reward, next_state, done))
@@ -43,7 +44,8 @@ for e in range(episode_count + 1):
         
         if len(bot.memory) > batch_size:
             bot.expReplay(batch_size)
-    if e % 10 == 0:
-        bot.model.save("./models/model_"+str(e))
+
+    if e % 6 == 0:
+        bot.model.save("./models/model_"+ stock_name +"_"+str(e))
 
 
