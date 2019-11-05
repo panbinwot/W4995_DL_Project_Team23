@@ -21,7 +21,7 @@ class Binbot:
         self.inventory = []
         self.model_name = model_name
         self.is_eval = is_eval
-
+        self.first_visit = True
         self.gamma = 0.95
         self.epsilon = 1.0
         self.epsilon_min = 0.01
@@ -38,10 +38,14 @@ class Binbot:
         return model
 
     def act(self, state):
-        if not self.is_eval and random.random() <= self.epsilon:
+        if self.first_visit:
+            self.first_visit = False
+            return 1
+        if not self.is_eval and np.random.rand()<= self.epsilon:
             return random.randrange(self.action_size)
         options = self.model.predict(state)
         return np.argmax(options[0])
+
     
     def expReplay(self, batch_size):
         mini_batch = []
