@@ -15,7 +15,7 @@ batch_size = 32
 for e in range(episode_count + 1):
     print("-"*20)
     print("Episode " + str(e)+"/"+ str(episode_count))
-    state = get_state(data, 0, window_size +1)
+    state = get_state(data, t = 0, n= window_size +1)
 
     total_gain = 0
     bot.inventory = []
@@ -43,9 +43,8 @@ for e in range(episode_count + 1):
             print("All done, the total gain for this round is "+ str(total_gain))
         
         if len(bot.memory) > batch_size:
-            bot.expReplay(batch_size)
+            bot.dp(batch_size)
 
-    if e % 6 == 0:
-        bot.model.save("./models/model_"+ stock_name +"_"+str(e))
+    bot.model.save("./models/model_"+ stock_name)
 
 

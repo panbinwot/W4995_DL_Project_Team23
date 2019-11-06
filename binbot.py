@@ -14,21 +14,24 @@ import random
 from collections import deque
 
 class Binbot:
-    def __init__(self, state_size, is_eval=False, model_name = ""):
+    def __init__(self, state_size, is_test=False, model_name = ""):
         self.state_size = state_size
-        self.action_size = 3 # buy, sell, sit
+        self.action_size = 3 # Define Actions for the bot: Hold, Buy and Sell
         self.memory = deque(maxlen = 1000)
         self.inventory = []
         self.model_name = model_name
-        self.is_eval = is_eval
+        self.is_test = is_test
         self.first_visit = True
         self.gamma = 0.95
         self.epsilon = 1.0
         self.epsilon_min = 0.01
         self.epsilon_decay = 0.995
-        self.model = load_model("models/" + model_name) if is_eval else self._model()
+        self.model = load_model("models/" + model_name) if is_test else self._model()
     
     def _model(self):
+    '''
+    This is the Nerual Network Part. We use a NN to approximate the value of the value function.
+    '''
         model = Sequential()
         model.add(Dense(units = 64, input_dim = self.state_size, activation = "relu"))
         model.add(Dense(units = 32, activation="relu"))
@@ -39,16 +42,19 @@ class Binbot:
         return model
 
     def act(self, state):
-        if self.first_visit:
+        if self.is_test and self.first_visit:
             self.first_visit = False
             return 1
-        if not self.is_eval and np.random.rand()<= self.epsilon:
+        if not self.is_test and np.random.rand()<= self.epsilon:
             return random.randrange(self.action_size)
         options = self.model.predict(state)
         return np.argmax(options[0])
 
     
-    def expReplay(self, batch_size):
+    def dp(self, batch_size):
+        '''
+        This is the dynamic programming part.
+        '''
         mini_batch = []
         l = len(self.memory)
 
@@ -62,6 +68,8 @@ class Binbot:
 
             target_f = self.model.predict(state)
             target_f[0][action] = target
+
+            # Here we train the 
             self.model.fit(state, target_f, epochs = 1, verbose = 0)
 
         if self.epsilon > self.epsilon_min:
