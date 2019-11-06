@@ -17,7 +17,7 @@ class Binbot:
     def __init__(self, state_size, is_test=False, model_name = ""):
         self.state_size = state_size
         self.action_size = 3 # Define Actions for the bot: Hold, Buy and Sell
-        self.memory = deque(maxlen = 2000)
+        self.memory = deque(maxlen = 1000)
         self.inventory = []
         self.model_name = model_name
         self.is_test = is_test
@@ -57,8 +57,10 @@ class Binbot:
         '''
         This is the dynamic programming part. The replay is the most siginficant  part of DQN. It allows the bot to track back to time and make decisions.
         '''
-        minibatch = random.sample(self.memory, batch_size)
-
+        mini_batch = random.sample(self.memory, batch_size)
+        mini_batch, l = [], len(self.memory)
+        for i in range(l -batch_size +1, l):
+            mini_batch.append(self.memory[i])
         for state, action, reward, next_state, done in mini_batch:
             target =  reward
             if not done:

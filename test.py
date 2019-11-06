@@ -2,9 +2,11 @@ import keras
 from keras.models import load_model
 import matplotlib.pyplot as plt
 from binbot import Binbot
+import pandas as pd
 from helper import *
 import sys
 
+# Firstly, we use the trained network to predict actions 
 stock_name = "AAPL"
 # model_name = "model_" + stock_name
 model_name = "model_60"
@@ -37,7 +39,8 @@ for t in range(l):
         strike_price = bot.inventory.pop(0)
         reward = max(data[t] - strike_price, 0)
         total_gain += data[t] - strike_price
-        print("Sell : " + str(data[t]) +
+        print("Sell : " + str(data[t]) + 
+                 "Single bet gain:" + str(reward)+
               " Current Total Gain :" + str(total_gain))
         tracker['action'].append("Sell")
     else:
@@ -52,3 +55,19 @@ for t in range(l):
 
     if len(bot.memory) > batch_size:
         bot.replay(batch_size)
+
+
+# Second: We evaluate our bot.
+action_plot(tracker,l)
+
+tracker = pd.DataFrame(tracker)
+
+tracker['rate_return'] = tracker['reward']/(tracker['close']-tracker['reward'])
+series = list(tracker[tracker['action'] == "Sell"]['rate_return'])
+rate_return_avg = len(series)*np.mean(series)
+sharpe_ratio =(rate_return_avg-0.0155)/np.sqrt(np.var(series))
+print("The avg rate return is {}, the sharpe ratio is, {}".format(rate_return_avg, sharpe_ratio))
+
+benchmark()
+
+
