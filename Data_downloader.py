@@ -31,4 +31,4 @@ def dataloader(stock_name):
 # for comp in name_lst:
 #   df = dataloader(comp)
 #   df.to_csv("./data/"+comp+".csv")
-
+dataloader('^GSPC').to_csv("./data/"+"SP500"+".csv")
