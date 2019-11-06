@@ -32,6 +32,7 @@ class Binbot:
         model = Sequential()
         model.add(Dense(units = 64, input_dim = self.state_size, activation = "relu"))
         model.add(Dense(units = 32, activation="relu"))
+        model.add(Dense(units = 16, activation="tahn"))
         model.add(Dense(units = 8, activation="relu"))
         model.add(Dense(self.action_size, activation = "linear") )
         model.compile(loss = "mse", optimizer = Adam(lr = 0.001))
