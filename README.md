@@ -5,5 +5,5 @@ The agent we build will compete with S&P 500 Index and Dow Jones Index in terms 
 
 At this point, the project is not finished and develop two separate ideas.
 
-The first one is a trading agent you can see on binbot.py and train through train.py\\
+The first one is a trading agent you can see on binbot.py and train through train.py<br>
 The second idea is the deterministic prediction of time series you can run through Project_TS.ipynb
