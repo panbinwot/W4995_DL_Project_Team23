@@ -4,7 +4,7 @@ import math
 import seaborn as sns
 
 def get_data(stock_name, 
-        start_train = '2010-01-01 01:00:00',end_train = '2015-12-31 04:00:00',
+        start_train = '2005-01-01 01:00:00',end_train = '2015-12-31 04:00:00',
         start_test = '2016-01-01 01:00:00' , end_test = '2018-12-31 12:00:00',
         key = 'close'):
     

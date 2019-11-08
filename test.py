@@ -9,7 +9,7 @@ import sys
 # Firstly, we use the trained network to predict actions 
 stock_name = "AAPL"
 # model_name = "model_" + stock_name
-model_name = "model_60"
+model_name = "model_10"
 model = load_model("./models/"+model_name)
 window_size = model.layers[0].input.shape.as_list()[1]
 
@@ -64,7 +64,7 @@ tracker = pd.DataFrame(tracker)
 
 tracker['rate_return'] = tracker['reward']/(tracker['close']-tracker['reward'])
 series = list(tracker[tracker['action'] == "Sell"]['rate_return'])
-rate_return_avg = len(series)*np.mean(series)
+rate_return_avg = np.mean(series)
 sharpe_ratio =(rate_return_avg-0.0155)/np.sqrt(np.var(series))
 print("The avg rate return is {}, the sharpe ratio is, {}".format(rate_return_avg, sharpe_ratio))
 
