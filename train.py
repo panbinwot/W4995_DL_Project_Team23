@@ -1,5 +1,5 @@
 from binbot import Binbot
-from helper import *
+from helper import get_data, get_return, get_state, action_plot, benchmark
 import pandas as pd
 import numpy as np
 
@@ -28,19 +28,22 @@ for e in range(episodes + 1):
 
         if action == 1: 
             bot.inventory.append(data[t])
-            print("Buy at "+ str(data[t]))
+            print("Buy at {:.3f}".format(data[t]))
         elif action==2 and len(bot.inventory)>0:
             strike_price = bot.inventory.pop(0)
             reward = max(data[t]-strike_price,0)
             total_gain += data[t] - strike_price
-            print("Sell at "+str(data[t])+" Current gain: "+str(total_gain))
+            print("Sell at {:.3f}$, Single bet gain:{:.3f}$, Current Total Gain:{:.3f}$".format(data[t], 
+                                                        data[t] - strike_price, 
+                                                        total_gain))
 
         is_complete = True if t == l - 1 else False
         bot.memory.append((state, action, reward, next_state, is_complete))
         state = next_state
 
         if is_complete:
-            print("All done, the total gain for this round is "+ str(total_gain))
+            print("-"*10)
+            print("stock_name {}, total gain:{:.3f}".format(stock_name, total_gain) )
         
         if len(bot.memory) > batch_size:
             bot.replay(batch_size)

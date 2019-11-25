@@ -29,14 +29,13 @@ class Binbot:
         self.model = load_model("models/" + model_name) if is_test else self._model()
     
     def _model(self):
-        # This is the Nerual Network Part. We use a NN to approximate the value of the value function.
+        # DQN use a neural network to approximate the Q Values
         model = Sequential()
         model.add(Dense(units = 64, input_dim = self.state_size, activation = "relu"))
         model.add(Dense(units = 32, activation="relu"))
-        # model.add(Dense(units = 16, activation="tahn"))
         model.add(Dense(units = 8, activation="relu"))
         model.add(Dense(self.action_size, activation = "linear") )
-        model.compile(loss="mse", optimizer=Adam(lr = 0.001))
+        model.compile(loss="mse", optimizer=Adam(lr = 0.01))
         return model
 
     def act(self, state):
@@ -45,17 +44,20 @@ class Binbot:
             self.first_visit = False
             return 1
         
-        # Allow the bot chooses random action with prob epsilon. epsilon starts with 1 but we set it decreases by 0.5% each time. 
+        # Allow the bot chooses random action with prob epsilon. 
+        # Epsilon starts with 1 but we set it decreases by 50% each time. 
 
         if not self.is_test and np.random.rand()<= self.epsilon:
             return random.randrange(self.action_size)
         options = self.model.predict(state)
+        # print(np.argmax(options[0]))
         return np.argmax(options[0])
-
     
     def replay(self, batch_size):
         '''
-        This is the dynamic programming part. The replay is the most siginficant  part of DQN. It allows the bot to track back to time and make decisions.
+        This is the dynamic programming part.
+        The replay is the most siginficant part of DQN. 
+        It allows the bot to track back to time and make decisions.
         '''
         mini_batch = random.sample(self.memory, batch_size)
         mini_batch, l = [], len(self.memory)
@@ -70,7 +72,7 @@ class Binbot:
             target_f[0][action] = target
 
             # Here we train the NN
-            self.model.fit(state, target_f, epochs = 1, verbose = 0)
+            self.model.fit(state, target_f, epochs = 5, verbose = 0)
 
         if self.epsilon > self.epsilon_min:
             self.epsilon *= 0.995

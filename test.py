@@ -3,7 +3,9 @@ from keras.models import load_model
 import matplotlib.pyplot as plt
 from binbot import Binbot
 import pandas as pd
-from helper import *
+import numpy as np
+from helper import get_data, get_return, get_state, action_plot, benchmark
+
 import sys
 
 # Firstly, we use the trained network to predict actions 
@@ -32,16 +34,16 @@ for t in range(l):
     tracker['close'].append(data[t])
     if action == 1:
         bot.inventory.append(data[t])
-        print("Buy : " + str(data[t]))
+        print("Buy at {:.3f}$".format(data[t]))
         tracker['action'].append("Buy")
 
     elif action == 2 and len(bot.inventory) > 0:
         strike_price = bot.inventory.pop(0)
         reward = max(data[t] - strike_price, 0)
         total_gain += data[t] - strike_price
-        print("Sell : " + str(data[t]) + 
-                 "Single bet gain:" + str(reward)+
-              " Current Total Gain :" + str(total_gain))
+        print("Sell at {:.3f}$, Single bet gain:{:.3f}$, Current Total Gain:{:.3f}$".format(data[t], 
+                                                                data[t] - strike_price, 
+                                                                total_gain))
         tracker['action'].append("Sell")
     else:
         tracker['action'].append("Hold")
@@ -51,11 +53,10 @@ for t in range(l):
     state = next_state
     if is_complete:
         print("-"*10)
-        print("stock_name " + stock_name + " total gain : " + str(total_gain))
+        print("stock_name {}, total gain:{:.3f}".format(stock_name, total_gain) )
 
     if len(bot.memory) > batch_size:
         bot.replay(batch_size)
-
 
 # Second: We evaluate our bot.
 action_plot(tracker,l)
@@ -66,8 +67,6 @@ tracker['rate_return'] = tracker['reward']/(tracker['close']-tracker['reward'])
 series = list(tracker[tracker['action'] == "Sell"]['rate_return'])
 rate_return_avg = np.mean(series)
 sharpe_ratio =(rate_return_avg-0.0155)/np.sqrt(np.var(series))
-print("The avg rate return is {}, the sharpe ratio is, {}".format(rate_return_avg, sharpe_ratio))
+print("The avg rate return is {:.2f}%, the sharpe ratio is {:.3f}".format(100*rate_return_avg, sharpe_ratio))
 
 benchmark()
-
-

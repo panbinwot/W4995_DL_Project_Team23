@@ -10,7 +10,7 @@ def get_data(stock_name,
     
     print("-"*30)
     print("We are training from {} to {} ".format(start_train,end_train))
-    print("And testing from {} to {} ".format(start_test, end_test))
+    print("And testing from {} to {} ".format(start_test,end_test))
     print("-"*30)
     df = pd.read_csv("./data/"+stock_name+".csv")
     train = list(df[(df['timestamp'] >= start_train) & (df['timestamp'] <= end_train)][key])
@@ -26,12 +26,6 @@ def get_state(data, t, n):
 		res.append(sigmoid(block[i - 1] - block[i]))
 
 	return np.array([res])
-
-def get_state2(data, t, window_size):
-    # This function takes in inputs and return the states for MDP
-    d = t - window_size
-    block = data[d:t + 1] if d >= 0 else -d * [data[0]] + data[0:t + 1]
-    return get_return(block,  window_size-1, True)
 
 def evaluate(series):
     '''
@@ -64,7 +58,7 @@ def benchmark(start ='2016-01-01 01:00:00',end = '2018-12-31 12:00:00'):
     df = pd.read_csv('./data/sp500.csv')
     series = list(df[(df['timestamp'] >= start) & (df['timestamp'] <= end)]['close'])
     a,b  = evaluate(series)
-    print("The evaluation of S&P500 (Basline): Rate of Return {}, Sharpe Ratio {}".format(a,b) )
+    print("The evaluation of S&P500 (Basline): Rate of Return {:.2f}%, Sharpe Ratio {:.3f}.".format(100*a,b) )
     return a,b
 
 def action_plot(tracker,l):
