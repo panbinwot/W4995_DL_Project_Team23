@@ -50,7 +50,6 @@ class Binbot:
         if not self.is_test and np.random.rand()<= self.epsilon:
             return random.randrange(self.action_size)
         options = self.model.predict(state)
-        # print(np.argmax(options[0]))
         return np.argmax(options[0])
     
     def replay(self, batch_size):
