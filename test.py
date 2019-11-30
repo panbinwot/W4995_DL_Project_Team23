@@ -13,6 +13,7 @@ stock_name = "AAPL"
 # model_name = "model_" + stock_name
 model_name = "model_10"
 model = load_model("./models/"+model_name)
+
 window_size = model.layers[0].input.shape.as_list()[1]
 
 bot = Binbot(window_size, True, model_name)
@@ -38,11 +39,11 @@ for t in range(l):
         tracker['action'].append("Buy")
 
     elif action == 2 and len(bot.buffer) > 0:
-        strike_price = bot.buffer.pop(0)
-        reward = max(data[t] - strike_price, 0)
-        total_gain += data[t] - strike_price
+        buy_price = bot.buffer.pop(0)
+        reward = max(data[t] - buy_price, 0)
+        total_gain += data[t] - buy_price
         print("Sell at {:.3f}$, Single bet gain:{:.3f}$, Current Total Gain:{:.3f}$".format(data[t], 
-                                                                data[t] - strike_price, 
+                                                                data[t] - buy_price, 
                                                                 total_gain))
         tracker['action'].append("Sell")
     else:

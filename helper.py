@@ -3,6 +3,14 @@ import pandas as pd
 import math
 import seaborn as sns
 
+def get_stock_names():
+  '''
+  Return 30 stocks in Dow Jones Indices
+  '''
+  djia_str = "KO MCD JPM AXP CAT UTX MSFT CVX AAPL HD DIS V XOM TRV PFE MRK JNJ BA VZ IBM GS WBA INTC DOW UNH WMT PG CSCO NKE MMM"
+  name_lst = [x for x in djia_str.split(" ")]
+  return name_lst
+
 def get_data(stock_name, 
 		start_train = '2005-01-01 01:00:00',end_train = '2015-12-31 04:00:00',
 		start_test = '2016-01-01 01:00:00' , end_test = '2018-12-31 12:00:00',
