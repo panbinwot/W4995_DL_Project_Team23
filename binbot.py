@@ -56,14 +56,13 @@ class Binbot:
         '''
         This is the dynamic programming part.
         The replay is the most siginficant part of DQN. 
-        It allows the bot to track back to time and make decisions.
         '''
         mini_batch = random.sample(self.memory, batch_size)
         mini_batch, l = [], len(self.memory)
         for i in range(l -batch_size +1, l):
             mini_batch.append(self.memory[i])
         for state, action, reward, next_state, done in mini_batch:
-            target =  reward
+            target = reward
             if not done:
                 target = reward + self.gamma * np.amax(self.model.predict(next_state)[0])
 
