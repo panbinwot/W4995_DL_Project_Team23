@@ -16,7 +16,7 @@ We also initialize the net worth of the portfolio as 1$ (Naive Setting)
 data_test = pd.read_csv('./data/test.csv')
 stock_lst = list(data_test.keys() )
 net_worth = 10000
-shares = list((net_worth/len(stock_lst))/data_test.loc[0,])
+# shares = list((net_worth/len(stock_lst))/data_test.loc[0,])
 
 weights = [1/(1+len(stock_lst))]*(1+len(stock_lst))
 print(len(weights))
@@ -52,6 +52,7 @@ for d in range(152):
         actions.append(action)
         rewards.append(reward)
     # net_worth += np.array(rewards)
+
     weights = [weights[x] + delta/actions.count(1)  if actions[x]==1 else weights[x] for x in range(len(stock_lst))]
     print("Test day {}, the net worth of the portfolio is {:.2f}$".format(d,net_worth))
     print(weights)
