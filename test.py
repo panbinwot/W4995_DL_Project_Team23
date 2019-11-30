@@ -25,7 +25,7 @@ total_gain = 0
 tracker = {'close': [], 'action': [], 'reward': []}
 idx = 0
 
-bot.inventory = []
+bot.buffer = []
 l = (len(data) - 1)
 for t in range(l):
     action = bot.act(state)
@@ -33,12 +33,12 @@ for t in range(l):
     reward = 0
     tracker['close'].append(data[t])
     if action == 1:
-        bot.inventory.append(data[t])
+        bot.buffer.append(data[t])
         print("Buy at {:.3f}$".format(data[t]))
         tracker['action'].append("Buy")
 
-    elif action == 2 and len(bot.inventory) > 0:
-        strike_price = bot.inventory.pop(0)
+    elif action == 2 and len(bot.buffer) > 0:
+        strike_price = bot.buffer.pop(0)
         reward = max(data[t] - strike_price, 0)
         total_gain += data[t] - strike_price
         print("Sell at {:.3f}$, Single bet gain:{:.3f}$, Current Total Gain:{:.3f}$".format(data[t], 

@@ -18,7 +18,7 @@ for e in range(episodes + 1):
     state = get_state(data, 0, window_size +1)
 
     total_gain = 0
-    bot.inventory = []
+    bot.buffer = []
 
     for t in range(l):
         action = bot.act(state)
@@ -27,10 +27,10 @@ for e in range(episodes + 1):
         reward = 0
 
         if action == 1: 
-            bot.inventory.append(data[t])
+            bot.buffer.append(data[t])
             print("Buy at {:.3f}".format(data[t]))
-        elif action==2 and len(bot.inventory)>0:
-            strike_price = bot.inventory.pop(0)
+        elif action==2 and len(bot.buffer)>0:
+            strike_price = bot.buffer.pop(0)
             reward = max(data[t]-strike_price,0)
             total_gain += data[t] - strike_price
             print("Sell at {:.3f}$, Single bet gain:{:.3f}$, Current Total Gain:{:.3f}$".format(data[t], 
