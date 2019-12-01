@@ -28,10 +28,10 @@ def dataloader(stock_name,
   # test = df[(df['timestamp'] >= '2016-1-1 01:00:00') & (df['timestamp'] <= '2018-12-31 04:00:00')]
   return df[(df['timestamp'] >= start) & (df['timestamp'] <= end)]
 
-# djia_str = "KO MCD JPM AXP CAT UTX MSFT CVX AAPL HD DIS V XOM TRV PFE MRK JNJ BA VZ IBM GS WBA INTC DOW UNH WMT PG CSCO NKE MMM"
-# name_lst = [x for x in djia_str.split(" ")]
+
 
 # for comp in name_lst:
 #   df = dataloader(comp)
 #   df.to_csv("./data/"+comp+".csv")
 # dataloader('^GSPC').to_csv("./data/"+"SP500"+".csv")
+
