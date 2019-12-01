@@ -14,12 +14,12 @@ def get_stock_names():
 def get_data(stock_name, 
 		start_train = '2005-01-01 01:00:00',end_train = '2015-12-31 04:00:00',
 		start_test = '2016-01-01 01:00:00' , end_test = '2018-12-31 12:00:00',
-		key = 'close'):
-	
-	print("-"*30)
-	print("We are training from {} to {} ".format(start_train,end_train))
-	print("And testing from {} to {} ".format(start_test,end_test))
-	print("-"*30)
+		key = 'close', verbose = 1):
+	if verbose == 1:
+		print("-"*30)
+		print("We are training from {} to {} ".format(start_train,end_train))
+		print("And testing from {} to {} ".format(start_test,end_test))
+		print("-"*30)
 	df = pd.read_csv("./data/"+stock_name+".csv")
 	train = list(df[(df['timestamp'] >= start_train) & (df['timestamp'] <= end_train)][key])
 	test = list(df[(df['timestamp'] >= start_test) & (df['timestamp'] <= end_test)][key])
@@ -73,6 +73,18 @@ def benchmark(start ='2016-01-01 01:00:00',end = '2018-12-31 12:00:00'):
 	print("The evaluation of S&P500 (Basline): Rate of Return {:.2f}%, Sharpe Ratio {:.3f}.".format(100*a,b) )
 	return a,b
 
+def generate_buffer(stock_names):
+	dct = {}
+	for stock in stock_names:
+		dct[stock] = []
+	return dct
+
+def get_test_dct(stock_names):
+	dct = {}
+	for stock in stock_names:
+		_, data = get_data(stock, start_test = '2015-12-31 12:00:00',verbose= 0)
+		dct[stock] = data
+	return dct
 def action_plot(tracker,l):
 	dat = pd.DataFrame(tracker)
 	x = [i+1 for i in range(l)]
