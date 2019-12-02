@@ -11,12 +11,11 @@ import sys
 # Firstly, we use the trained network to predict actions 
 stock_name = "AAPL"
 # model_name = "model_" + stock_name
-model_name = "model_20"
-model = load_model("./models/"+model_name)
+model = load_model("./models/model_20")
 
 window_size = model.layers[0].input.shape.as_list()[1]
 
-bot = Binbot(window_size, True, model_name)
+bot = Binbot(window_size, True, model_name= "model_20")
 _, data = get_data(stock_name)
 print("Number of days we are playing", len(data))
 batch_size = 32

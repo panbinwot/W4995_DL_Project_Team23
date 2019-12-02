@@ -7,7 +7,8 @@ def get_stock_names():
   '''
   Return 30 stocks in Dow Jones Indices
   '''
-  djia_str = "KO MCD JPM AXP CAT UTX MSFT CVX AAPL HD DIS V XOM TRV PFE MRK JNJ BA VZ IBM GS WBA INTC DOW UNH WMT PG CSCO NKE MMM"
+#   djia_str = "KO MCD JPM AXP CAT UTX MSFT CVX AAPL HD DIS V XOM TRV PFE MRK JNJ BA VZ IBM GS WBA INTC DOW UNH WMT PG CSCO NKE MMM"
+  djia_str = "KO MCD JPM AXP CAT UTX MSFT CVX AAPL HD DIS V XOM TRV PFE MRK JNJ BA VZ IBM GS WBA INTC UNH WMT PG CSCO NKE MMM"
   name_lst = [x for x in djia_str.split(" ")]
   return name_lst
 

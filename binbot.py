@@ -27,7 +27,7 @@ class Binbot:
         self.epsilon = 1.0
         self.learning_rate = 0.001
         self.nn_epochs = nn_epochs
-        self.model = load_model("models/" + model_name) if is_test else self._model()
+        self.model = load_model("./models/" + model_name) if is_test else self._model()
     
     def _model(self):
         # DQN use a neural network to approximate the Q Values
