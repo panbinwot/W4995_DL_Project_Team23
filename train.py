@@ -48,6 +48,6 @@ for e in range(episodes + 1):
         if len(bot.memory) > batch_size:
             bot.replay(batch_size)
 
-    bot.model.save("./models/model_"+ stock_name)
+bot.model.save("./models/model_"+ stock_name+"_"+"short_term")
 
 

@@ -9,7 +9,7 @@ from helper import generate_buffer, get_test_dct
 import seaborn as sns
 
 '''
-Weights is how we decide to distribute the money
+Shares is how we decide to distribute the money
 We initialize it by uniformly distributed over stocks (including cash)
 We also initialize the net worth of the portfolio as 1$ (Naive Setting)
 '''
@@ -32,17 +32,15 @@ res = []
 
 current_state = generate_buffer(stock_lst)
 next_state = generate_buffer(stock_lst)
-# Firstly, we initialize state one
+# Firstly, we initialize state zero
 for stock in stock_lst:
     # current_state[stock] = get_state(test_dct[stock], 0, window_size + 1)
     current_state[stock] =np.array([[0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]])
 
 cash = (10000/(1+len(stock_lst)))
 for d in range(duration):
-    # if d>3: break
-    delta_weight = np.array([0]*(1+len(stock_lst)))
-    rewards,actions = [],[]
-    delta = 0
+    if d>3: break
+    actions = []
     total_value = 0
     for i, stock in enumerate(stock_lst,0):
         bot.current = stock
@@ -51,27 +49,26 @@ for d in range(duration):
         data = test_dct[stock]
         # try:
         # bot.model_name = 'model'+str(stock)
-        bot.model_name = 'model_20'
+        bot.model_name = 'model_80'
         next_state[stock] = get_state(data, t = d+1, n = window_size+1 )
         action = bot.act(current_state[stock])
         reward = 0.0
         if action == 1:
             bot.buffer[stock].append(data[d])
             print("Buy at {:.3f}$".format(data[d]))
-        elif action ==2 and len(bot.buffer[stock]) >0:
+        if action == 2 and len(bot.buffer[stock]) >0:
             buy_price = bot.buffer[stock].pop(0)
             reward = max(data[d] - buy_price, 0)
             reward2 = (data[d] - buy_price)*shares[i]
             
             print("Sell at {:.3f}$, Single bet gain:{:.3f}$".format(data[d],reward2))
-            cash += reward2
+            cash += data[d]*shares[i]
 
-        is_complete = True if d == duration-1 else False
-        bot.memory[stock].append((current_state[stock], action, reward, next_state[stock], is_complete))
-        
-        current_state[stock] = next_state[stock]
-        if len(bot.memory[stock]) > 32:
-            bot.replay()       
+        # is_complete = True if d == duration-1 else False
+        # bot.memory[stock].append((current_state[stock], action, reward, next_state[stock], is_complete))
+        # current_state[stock] = next_state[stock]
+        # if len(bot.memory[stock]) > 32:
+            # bot.replay()       
 
         actions.append(action)
         idx += 1
