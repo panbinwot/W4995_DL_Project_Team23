@@ -1,20 +1,40 @@
 # Term Project for W4995 Sec:10 Deep Learning. 
+# DQNAgent with Vision
 ## Introduction
-The purpose of the project is building a smart trading agent with deep reinforcement learning. We form the financial time series (stock price data) as Markov Descision Proess (MDP). Although the price of T<sub>n</sub> is not a sufficient statistic of T<sub>n+1</sub>, we can include history data to the process close to MDP.
+Reinforcement Learning is a framework where we trained a agent to make best actions in response to the environment. It allows the agent to find the best strategy in games like Atari. Stock trading is no doubt one of those games that reinforcement learning could explore. Although, the stock market is not a Markov process, we could include part of its history to make the process Markovian. Thus, we
+can introduce deep reinforcement learning to financial data modelling. During this project, we explored the potential of training Deep Q-Learning agent (DQNAgent) to learn portfolio management and build a time series predictor with Convolution Network as well as ResNet. Furthermore, we combine the two architecture to create a DQNAgent with time series predictability.
 
-The agent we build will compete with S&P 500 Index and Dow Jones Index in terms of rate of return and Sharpe Ratio, which evalute a trading strategy's return and risk.
+![frameowork_simple](Img_output/framework.png)
 
-At this point, the project is not finished and develop two separate ideas.
+##  Dataset
+we track the daily close price of 30 stocks in the Dow Jones Index. Average (DJIA)  from 01/01/1995 to 12/31/2018.  The model will be trained on data from 01/01/1995 to  12/31/2013 and validated on data from 01/01/2014 to  12/31/2016. Then we will test our model on the stock price from 01/01/2017 to 12/31/2018. The dataset can be acquired
+from yahoo finance API.
 
-The first one is a trading agent you can see on binbot.py and train through train.py<br>
-The second idea is the deterministic prediction of time series you can run through Project_TS.ipynb
+## Method (Architecture)
+### Deep Q-Learning
+![deepqlearning](Img_output/DQN_Arch.png)
+### Time Series prediction
+- CNN Predictor
+![cnnpredictor](Img_output/Model.png)
 
-## Naive Ideas
-All eggs go to one basket
-- One ideas is, since the object is maximizing the profit over 506 stocks in S\&P 500, we simply let the rot find the most profitable stock he/she believes and distribute all the money to that stock. Obviously, it is stupid (we put all the egg into one basket.) 
+- ResNet Predictor  
+![resnet](Img_output/ArchiRes1.png)
 
-Top stocks,
-We distribute money over top x potential probability stocks,ranked by probability of winning?
+###  Architecture of our trading agent: Agent with Vision
+![deepqlearning](Img_output/visionbot.png)
+## Results
+We trained the agent on data from 01/01/1995 to 12/31/2015 and validated on the year 2016. Then we will test our model on the data from 01/01/2017 to 12/31/2018.
 
-x<sub>2</sub>
-x<sup>2</sup>
+### Deep Q-Learning
+![deepqlearning_res](Img_output/binbot.png)
+![deepqlearning_res](Img_output/binbot2.png)
+### Time Series prediction
+- CNN Predictor
+![cnnpredictor_res](Img_output/Model.png)
+
+- ResNet Predictor 
+    - ![resnet_res](Img_output/TS_3.jpg)
+
+###  Agent with Vision
+![total_res](Img_output/sp500vsagent.png)
+
