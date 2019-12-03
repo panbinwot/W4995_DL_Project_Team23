@@ -12,7 +12,7 @@ from yahoo finance API.
 
 ## Usage
 ```python
-python3 portfolio2.py
+python3 portoflio_testing.py
 ```
 
 ## Method (Architecture)
