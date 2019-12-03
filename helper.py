@@ -51,6 +51,7 @@ def evaluate(series):
 	rate_returns = get_return(series, len(series), False)
 	rate_return_avg = 250*np.mean(rate_returns)
 	sharpe_ratio =(rate_return_avg-0.0155)/np.sqrt(np.var(rate_returns))
+	series[]
 	return rate_return_avg, sharpe_ratio
 
 def get_return(lst,n, m ):
@@ -92,3 +93,17 @@ def action_plot(tracker,l):
 	sns.set_style("whitegrid")
 	sns.scatterplot(x, y  = 'close',hue = 'action', style= 'action', palette="inferno", data = dat)
 	sns.lineplot(x, y  = 'close',data = dat)
+
+def get_TS_data(data, t, n):
+	'''
+	This function takes return the states for MDP
+	Create the time interval we allow the agent observe.
+	This step requires padding
+	'''
+	d = t - n + 1
+	block = data[d:t + 1] if d >= 0 else -d * [data[0]] + data[0:t + 1]
+	res = []
+	for i in range(n - 1):
+		res.append([block[i]])
+
+	return np.array([res])

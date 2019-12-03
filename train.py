@@ -1,5 +1,5 @@
-from binbot import Binbot
-from helper import get_data, get_return, get_state, action_plot, benchmark
+from binbot_vision import Binbot
+from helper import get_data, get_return, get_state, action_plot, benchmark_sp
 import pandas as pd
 import numpy as np
 
@@ -48,6 +48,6 @@ for e in range(episodes + 1):
         if len(bot.memory) > batch_size:
             bot.replay(batch_size)
 
-bot.model.save("./models/model_"+ stock_name+"_"+"short_term")
+bot.model.save("./models/model_"+ stock_name+"_"+"vision")
 
 
