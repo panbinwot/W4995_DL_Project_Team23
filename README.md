@@ -4,21 +4,35 @@
 Reinforcement Learning is a framework where we trained a agent to make best actions in response to the environment. It allows the agent to find the best strategy in games like Atari. Stock trading is no doubt one of those games that reinforcement learning could explore. Although, the stock market is not a Markov process, we could include part of its history to make the process Markovian. Thus, we
 can introduce deep reinforcement learning to financial data modelling. During this project, we explored the potential of training Deep Q-Learning agent (DQNAgent) to learn portfolio management and build a time series predictor with Convolution Network as well as ResNet. Furthermore, we combine the two architecture to create a DQNAgent with time series predictability.
 
-![frameowork_simple](Img_output/framework.png)
+<img src = "Img_output/framework.png" alt ="drawing" width = "400" />
 
 ##  Dataset
 We track the daily close price of 30 stocks in the Dow Jones Index. Average (DJIA)  from 01/01/1995 to 12/31/2018.  The model will be trained on data from 01/01/1995 to  12/31/2013 and validated on data from 01/01/2014 to  12/31/2016. Then we will test our model on the stock price from 01/01/2017 to 12/31/2018. The dataset can be acquired
 from yahoo finance API.
 
+## Environment
+```
+python --vision: python 3.7.4
+Keras == 2.3.1
+notebook == 6.0.1    
+numpy  == 1.17.2      
+pandas == 0.25.1    
+scipy  == 1.3.1    
+seaborn  ==  0.9.0      
+scikit-learn  == 0.21.3      
+tensorflow ==  2.0.0    
+yahoo-finance-api2 == 0.0.8    
+```
 ## Usage
 ```python
+python3 -m pip install -r requirements.txt
 python3 portoflio_testing.py
 ```
 
 ## Method (Architecture)
 ### Deep Q-Learning
 The very basic idea is that we train a agent play a game call stock trading. Agent observes the a series of data points, which are stock prices, from the environment. It has three actions, Sell, Buy and Hold4. The agent observe the environment pass the state into the neural network to make decisions on the action. Then, the environment will return a new state and give a reward. In this case, if the agent is selling the stock, the reward is the immediate return by this bet.
-![deepqlearning](Img_output/DQN_Arch.png)
+<img src = "Img_output/DQN_Arch.png" alt ="drawing" width = "400" />
 
 ### Time Series prediction
 - CNN Predictor
@@ -49,23 +63,26 @@ series vectors are very smaller than the wide image matrices.
 Hence we built a ResNet-like architecture adapted to small
 data and 1-dimensional convolution.
 
-###  Architecture of our trading agent: Agent with Vision
-![deepqlearning](Img_output/visionbot.png)
+###  Architecture of our trading agent: Agent with Visions
+<img src = "Img_output/visionbot.png" alt ="drawing" width = "400" />
+
 ## Results
 We trained the agent on data from 01/01/1995 to 12/31/2015 and validated on the year 2016. Then we will test our model on the data from 01/01/2017 to 12/31/2018.
 
 ### Deep Q-Learning
-![deepqlearning_res](Img_output/binbot.png)
-![deepqlearning_res](Img_output/binbot2.png)
-### Time Series prediction
-- CNN Predictor
-    - ![cnnpredictor_res](Img_output/TS_1.png)
+<img src = "Img_output/binbot.png" alt ="drawing" width = "400" />
+<img src = "Img_output/binbot2.png" alt ="drawing" width = "400" />
 
-- ResNet Predictor 
-    - ![resnet_res](Img_output/TS_3.jpg)
+### Time Series prediction
+- CNN Predictor <br>
+<img src = "Img_output/TS_1.png" alt ="drawing" width = "400" />
+
+- ResNet Predictor <br>
+<img src = "Img_output/TS_3.jpg" alt ="drawing" width = "400" />
 
 ###  Agent with Vision
-![total_res](Img_output/sp500vsagent.png)
+<img src = "Img_output/sp500vsagent.png" alt ="drawing" width = "400" />
+<!-- ![total_res](Img_output/sp500vsagent.png) -->
 
 | model      | Rate of Return  | Sharpe Ratio     |
 | :------------- | :----------: | -----------: |
