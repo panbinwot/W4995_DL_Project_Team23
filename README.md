@@ -64,7 +64,7 @@ Hence we built a ResNet-like architecture adapted to small
 data and 1-dimensional convolution.
 
 ###  Architecture of our trading agent: Agent with Visions
-<img src = "Img_output/visionbot.png" alt ="drawing" width = "500" />
+<img src = "Img_output/visionbot.png" alt ="drawing" width = "700" />
 
 ## Results
 We trained the agent on data from 01/01/1995 to 12/31/2015 and validated on the year 2016. Then we will test our model on the data from 01/01/2017 to 12/31/2018.
