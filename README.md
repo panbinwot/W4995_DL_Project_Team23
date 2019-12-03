@@ -64,24 +64,24 @@ Hence we built a ResNet-like architecture adapted to small
 data and 1-dimensional convolution.
 
 ###  Architecture of our trading agent: Agent with Visions
-<img src = "Img_output/visionbot.png" alt ="drawing" width = "700" />
+<img src = "Img_output/visionbot.png" alt ="drawing" width = "500" />
 
 ## Results
 We trained the agent on data from 01/01/1995 to 12/31/2015 and validated on the year 2016. Then we will test our model on the data from 01/01/2017 to 12/31/2018.
 
 ### Deep Q-Learning
-<img src = "Img_output/binbot.png" alt ="drawing" width = "700" />
-<img src = "Img_output/binbot2.png" alt ="drawing" width = "700" />
+<img src = "Img_output/binbot.png" alt ="drawing" width = "500" />
+<img src = "Img_output/binbot2.png" alt ="drawing" width = "500" />
 
 ### Time Series prediction
 - CNN Predictor <br>
-<img src = "Img_output/TS_1.png" alt ="drawing" width = "700" />
+<img src = "Img_output/TS_1.png" alt ="drawing" width = "500" />
 
 - ResNet Predictor <br>
-<img src = "Img_output/TS_3.jpg" alt ="drawing" width = "700" />
+<img src = "Img_output/TS_3.jpg" alt ="drawing" width = "500" />
 
 ###  Agent with Vision
-<img src = "Img_output/sp500vsagent.png" alt ="drawing" width = "700" />
+<img src = "Img_output/sp500vsagent.png" alt ="drawing" width = "500" />
 <!-- ![total_res](Img_output/sp500vsagent.png) -->
 
 | model      | Rate of Return  | Sharpe Ratio     |
