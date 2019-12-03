@@ -67,7 +67,7 @@ def get_return(lst,n, m ):
 def sigmoid(x):
 	return 1 / (1+math.exp(-x))
 
-def benchmark(start ='2016-01-01 01:00:00',end = '2018-12-31 12:00:00'):
+def benchmark_sp(start ='2016-01-01 01:00:00',end = '2018-12-31 12:00:00'):
 	df = pd.read_csv('./data/sp500.csv')
 	series = list(df[(df['timestamp'] >= start) & (df['timestamp'] <= end)]['close'])
 	a,b  = evaluate(series)
