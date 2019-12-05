@@ -86,8 +86,8 @@ We trained the agent on data from 01/01/1995 to 12/31/2015 and validated on the 
 
 | model      | Rate of Return  | Sharpe Ratio     |
 | :------------- | :----------: | -----------: |
-|  S&P500 (Benchmark)    | 5.32%          | 0.018   |
-| DQNAgent (Single)        | Put Pipes In |  0.65 |
+|  S&P500 (Benchmark)    | 3.02%          | 0.018   |
+| DQNAgent (Single)        |  5.32%  |  0.65 |
 | DQNAgent (Portfolio)   | 13.13%         | 0.67 |
 |DQNAgent (New, Portfolio) | 14.15% | 1.1 |
 
