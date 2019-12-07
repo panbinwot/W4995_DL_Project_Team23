@@ -1,6 +1,7 @@
-# Term Project for W4995 Sec:10 Deep Learning. 
+
 # DQNAgent with Vision
-## Introduction
+## Introduction 
+#### Term Project for W4995 Sec:10 Deep Learning. <br>
 Reinforcement Learning is a framework where we trained a agent to make best actions in response to the environment. It allows the agent to find the best strategy in games like Atari. Stock trading is no doubt one of those games that reinforcement learning could explore. Although, the stock market is not a Markov process, we could include part of its history to make the process Markovian. Thus, we
 can introduce deep reinforcement learning to financial data modelling. During this project, we explored the potential of training Deep Q-Learning agent (DQNAgent) to learn portfolio management and build a time series predictor with Convolution Network as well as ResNet. Furthermore, we combine the two architecture to create a DQNAgent with time series predictability.
 
