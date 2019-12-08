@@ -51,7 +51,6 @@ def evaluate(series):
 	rate_returns = get_return(series, len(series), False)
 	rate_return_avg = 250*np.mean(rate_returns)
 	sharpe_ratio =(rate_return_avg-0.0155)/np.sqrt(np.var(rate_returns))
-	series[]
 	return rate_return_avg, sharpe_ratio
 
 def get_return(lst,n, m ):

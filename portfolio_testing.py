@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 #  from binbot import Binbot
-from binbot_vision import Binbot
+from agent_vision import Binbot
 import pandas as pd
 import numpy as np
 from helper import get_data, get_return, get_state, action_plot, benchmark_sp, get_stock_names
